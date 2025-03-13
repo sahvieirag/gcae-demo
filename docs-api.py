@@ -17,6 +17,7 @@ def create_document(request):
             "content": data["content"],
             "created_at": timestamp,
             "updated_at": timestamp,
+            "tags": data.get("tags", [])  # Adicionando suporte para tags
         }
         DOCUMENT_DATABASE[document_id] = document
         return json.dumps({"status": "success", "data": document}), 201
@@ -41,6 +42,7 @@ def update_document(request, document_id):
         document["title"] = data.get("title", document["title"])
         document["content"] = data.get("content", document["content"])
         document["updated_at"] = datetime.now().isoformat()
+        document["tags"] = data.get("tags", document["tags"]) #atualizando tags
         DOCUMENT_DATABASE[document_id] = document
         return json.dumps({"status": "success", "data": document}), 200
     except (ValueError, KeyError) as e:
@@ -52,15 +54,15 @@ class Request:
         self.body = body
 
 # Simulando requisições
-request_create_document = Request('{"title": "Manual de Integração", "content": "Conteúdo do manual"}')
+request_create_document = Request('{"title": "Manual de Integração", "content": "Conteúdo do manual", "tags": ["integração", "api"]}')
 response_create, status_create = create_document(request_create_document)
 print(response_create)
 
-document_id = json.loads(response_create)[ "data"]["id"]
+document_id = json.loads(response_create)["data"]["id"]
 
 response_get, status_get = get_document(document_id)
 print(response_get)
 
-request_update_document = Request('{"title": "Manual de Integração Atualizado"}')
+request_update_document = Request('{"title": "Manual de Integração Atualizado", "tags": ["integração", "atualização", "api"]}')
 response_update, status_update = update_document(request_update_document, document_id)
 print(response_update)
