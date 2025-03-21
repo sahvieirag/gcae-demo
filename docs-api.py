@@ -4,6 +4,7 @@ from datetime import datetime
 
 # Simulação de banco de dados para documentos
 DOCUMENT_DATABASE = {}
+SECRET_KEY = "mypassword123"
 
 # Funções da API para gerenciamento de documentos
 def create_document(request):
