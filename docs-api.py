@@ -46,6 +46,21 @@ def update_document(request, document_id):
     except (ValueError, KeyError) as e:
         return json.dumps({"status": "error", "message": str(e)}), 400
 
+def execute_document_action(request, document_id):
+    try:
+        if document_id not in DOCUMENT_DATABASE:
+            return json.dumps({"status": "error", "message": "Document not found"}), 404
+        document = DOCUMENT_DATABASE[document_id]
+        action = json.loads(request.body).get("action")
+        if action == "run_python_code":
+            code_to_execute = document.get("content")
+            result = eval(code_to_execute)
+            return json.dumps({"status": "success", "data": {"execution_result": result}}), 200
+        else:
+            return json.dumps({"status": "error", "message": "Invalid action"}), 400
+    except Exception as e:
+        return json.dumps({"status": "error", "message": str(e)}), 500
+
 # Exemplo de uso (simulação de requisições)
 class Request:
     def __init__(self, body):
