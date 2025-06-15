@@ -1,3 +1,4 @@
-docs-api.py
-*.js
-*.ts
+javascript/*
+py-api/*
+terraform/*
+typescript/*
