@@ -15,6 +15,7 @@ Este repositório pode ser usado como:
 
 Ao demonstrar o Gemini Code Assist, pode-se pedir para:
 * Começar a desenvolver código correlato e esperar completude semelhante.
+* Conectar tools para interação.
 * Criar um novo tipo de cliente de API seguindo o padrão `StandardApiClient`.
 * Implementar uma nova lógica de validação aderente às regras de `validation.ts`.
 * Gerar um novo módulo Terraform para um recurso GCP diferente, mas mantendo as convenções de nomenclatura e labels.
